@@ -260,4 +260,17 @@
     "You are receiving this email because we received a password reset request for your account.": "パスワード再設定のリクエストを受け付けました。",
     "You're logged in!": "ログイン成功",
     "Your email address is unverified.": "メールアドレスが未認証です。"
+
+    ,
+    "Click here for registered users": "登録済みの方はこちら",
+    "Click here for new registration": "新規登録はこちら",
+    "Event Form": "登録フォーム",
+    "Event Update Form": "更新フォーム",
+    "Event Info": "予定詳細",
+    "AllDay": "終日",
+    "Event Start": "開始日時",
+    "Event End": "終了日時",
+    "Event Name": "タイトル",
+    "Description": "詳細"
+    ,"pagination": ":total件中、:from〜:to件表示"
 }
