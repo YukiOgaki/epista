@@ -37,8 +37,7 @@ class PostController extends Controller
         $post->user_id = $request->user()->id;
 
         $file = $request->file('image');
-        $post->image = date('YmdHis') . '_' . $file->getClientOriginalName();
-
+        $post->image = self::createFileName($file);
         // トランザクション開始
         DB::beginTransaction();
         try {
@@ -79,7 +78,9 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::find($id);
+
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -96,7 +97,7 @@ class PostController extends Controller
 
         $file = $request->file('image');
         if ($file) {
-            $delete_file_path = $post->image_path;
+            $delete_file_path = 'images/posts/' . $post->image;
             $post->image = self::createFileName($file);
         }
         $post->fill($request->all());
@@ -117,7 +118,7 @@ class PostController extends Controller
                 // 画像削除
                 if (!Storage::delete($delete_file_path)) {
                     //アップロードした画像を削除する
-                    Storage::delete($post->image_path);
+                    Storage::delete('images/posts/' . $post->image);
                     //例外を投げてロールバックさせる
                     throw new \Exception('画像ファイルの削除に失敗しました。');
                 }
@@ -163,5 +164,10 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')
             ->with('notice', '記事を削除しました');
+    }
+
+    private static function createFileName($file)
+    {
+        return date('YmdHis') . '_' . $file->getClientOriginalName();
     }
 }

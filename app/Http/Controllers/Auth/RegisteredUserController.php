@@ -33,6 +33,11 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ],[
+            // validationのカラム.ルールをキーにしてメッセージを指定
+            'email.required' => 'メールアドレスは必須項目です',
+            // emailのattributeのみ変更したい場合はlangファイルを指定して、attributeのみ上書きする
+            'email' => __('validation', ['attribute' => 'メールアドレス']),
         ]);
 
         $user = User::create([
