@@ -42,7 +42,7 @@
                                 {{ __('Profile') }}
                                 </x-dropdown-link>
                             <x-dropdown-link :href="route('posts.create')">
-                                {{ __('Create Post') }}
+                                {{ __('お題を登録する') }}
                                 </x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -103,7 +103,7 @@
 
                     <!-- Authentication -->
                     <x-responsive-nav-link :href="route('posts.create')">
-                        {{ __('Create Post') }}
+                        {{ __('お題を登録する') }}
                     </x-responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
