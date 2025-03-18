@@ -31,7 +31,6 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request, Post $post)
     {
-        // 
         $comment = new Comment($request->all());
         $comment->user_id = $request->user()->id;
 
@@ -44,7 +43,7 @@ class CommentController extends Controller
 
         return redirect()
             ->route('posts.show', $post)
-            ->with('notice', 'コメントを登録しました');
+            ->with('notice', 'ボケを登録しました');
     }
 
     /**
@@ -83,7 +82,7 @@ class CommentController extends Controller
         }
 
         return redirect()->route('posts.show', $post)
-            ->with('notice', 'コメントを更新しました');
+            ->with('notice', 'ボケを更新しました');
     }
 
     /**

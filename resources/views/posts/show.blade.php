@@ -18,13 +18,15 @@
         </article>
         <div class="flex flex-row text-center my-4">
             @can('update', $post)
-                <a href="{{ route('posts.edit', $post) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-20 mr-2">編集</a>
+                <a href="{{ route('posts.edit', $post) }}" 
+                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-20 mr-2">編集</a>
             @endcan
             @can('delete', $post)
                 <form action="{{ route('posts.destroy', $post) }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <input type="submit" value="削除" onclick="if(!confirm('削除しますか？')){return false};" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-20">
+                    <input type="submit" value="削除" onclick="if(!confirm('削除しますか？')){return false};" 
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-20">
                 </form>
             @endcan
         </div>
@@ -33,7 +35,8 @@
             <hr class="my-4">
 
             <div class="flex justify-end">
-                <a href="{{ route('posts.comments.create', $post) }}" class="bg-indigo-400 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block">コメント登録</a>
+                <a href="{{ route('posts.comments.create', $post) }}" 
+                    class="bg-indigo-400 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block">ボケる</a>
             </div>
         @endauth
 
