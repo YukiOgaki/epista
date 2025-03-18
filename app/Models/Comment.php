@@ -10,9 +10,7 @@ class Comment extends Model
     /** @use HasFactory<\Database\Factories\CommentFactory> */
     use HasFactory;
     
-    protected $fillable = [
-        'body',
-    ];
+    protected $fillable = ['post_id', 'user_id', 'body'];
 
     public function user()
     {
@@ -22,5 +20,10 @@ class Comment extends Model
     public function post()
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
     }
 }

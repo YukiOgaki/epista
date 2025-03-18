@@ -21,13 +21,22 @@
                 </label>
                 <textarea name="body" rows="10"
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
-                    required>{{ old('body') }}</textarea>
+                    required>
+                    {{ old('body') }}</textarea>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm mb-2" for="image">
-                    お題用画像
-                </label>
-                <input type="file" name="image" class="border-gray-300">
+            <div class="flex gap-8">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm mb-2" for="image">
+                        お題用画像
+                    </label>
+                    <input type="file" name="image" class="border-gray-300">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm mb-2" for="deadline">
+                        期限
+                    </label>
+                    <input type="date" name="deadline" id="deadline" class="border p-2 rounded">
+                </div>
             </div>
             <input type="submit" value="プレイボール！！"
                 class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

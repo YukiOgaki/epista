@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LikeController;
 
 Route::get('/', [PostController::class, 'index'])
     ->name('root');
@@ -28,5 +29,9 @@ Route::resource('posts', PostController::class)
 Route::resource('posts.comments', CommentController::class)
     ->only(['create', 'store', 'edit', 'update', 'destroy'])
     ->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/comments/{comment}/like', [LikeController::class, 'toggleLike'])->name('comments.like');
+});
 
 require __DIR__ . '/auth.php';

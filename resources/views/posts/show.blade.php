@@ -7,15 +7,18 @@
         <article class="mb-2">
             <h2 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-1 text-3xl md:text-4xl break-words">
                 {{ $post->title }}</h2>
-            <h3>{{ $post->user->name }}</h3>
-            <p class="text-sm mb-2 md:text-base font-normal text-gray-600">
-                <span
-                    class="text-red-400 font-bold">{{ date('Y-m-d H:i:s', strtotime('-1 day')) < $post->created_at ? 'NEW' : '' }}</span>
+            <p class="text-sm md:text-base font-normal text-gray-600">
+                <span class="text-red-400 font-bold">
+                    {{ date('Y-m-d H:i:s', strtotime('-1 day')) < $post->created_at ? 'NEW' : '' }}
+                </span>
                 {{ $post->created_at }}
+                作成者:{{ $post->user->name }} (運営)
             </p>
             <img src="{{ $post->image_url }}" alt="" class="mb-4">
             <p class="text-gray-700 text-base break-all">{!! nl2br(e($post->body)) !!}</p>
+            <p class="text-gray-700 text-base break-all text-red-400 font-bold">投票期限:{{ ($post->deadline) }}</p>
         </article>
+
         <div class="flex flex-row text-center my-4">
             @can('update', $post)
                 <a href="{{ route('posts.edit', $post) }}" 
@@ -46,10 +49,21 @@
                     <span class="font-bold mr-3">{{ $comment->user->name }}</span>
                     <span class="text-sm">{{ $comment->created_at }}</span>
                     <p class="break-all">{!! nl2br(e($comment->body)) !!}</p>
+        
+                    <!-- イイネボタン追加 -->
+                    <div class="flex items-center justify-start mt-2">
+                        <button class="like-button flex items-center text-blue-500"
+                            data-comment-id="{{ $comment->id }}"
+                            @if(now()->greaterThan($post->deadline)) disabled @endif>
+                            👍 <span class="like-count ml-1">{{ $comment->likes->count() }}</span>
+                        </button>
+                    </div>
                     <div class="flex justify-end text-center">
                         @can('update', $comment)
                             <a href="{{ route('posts.comments.edit', [$post, $comment]) }}"
-                                class="text-sm bg-green-400 hover:bg-green-600 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline w-20 mr-2">編集</a>
+                                class="text-sm bg-green-400 hover:bg-green-600 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline w-20 mr-2">
+                                編集
+                            </a>
                         @endcan
                         @can('delete', $comment)
                             <form action="{{ route('posts.comments.destroy', [$post, $comment]) }}" method="post">
@@ -64,5 +78,39 @@
                 <hr>
             @endforeach
         </section>
+        
+        <!-- JavaScript (イイネ機能) -->
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".like-button").forEach(button => {
+                button.addEventListener("click", function(event) {
+                    // 期限切れの場合は処理を中断
+                    if (this.hasAttribute("disabled")) {
+                        alert("この投稿の期限が過ぎているため、イイネはできません。");
+                        return;
+                    }
+        
+                    let commentId = this.getAttribute("data-comment-id");
+                    let likeCount = this.querySelector(".like-count");
+        
+                    fetch(`/comments/${commentId}/like`, {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                            "Accept": "application/json",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        likeCount.textContent = data.like_count;
+                        this.classList.toggle("liked", data.liked);
+                    })
+                    .catch(error => console.error("Error:", error));
+                });
+            });
+        });
+        </script>
     </div>
 </x-app-layout>

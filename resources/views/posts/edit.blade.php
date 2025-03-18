@@ -10,7 +10,7 @@
             @method('PUT')
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm mb-2" for="title">
-                    タイトル
+                    お題
                 </label>
                 <input type="text" name="title"
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
@@ -18,18 +18,26 @@
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm mb-2" for="body">
-                    本文
+                    説明
                 </label>
                 <textarea name="body" rows="10"
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
-                    required placeholder="本文">{{ old('body', $post->body) }}</textarea>
+                    required>{{ old('body', $post->body) }}</textarea>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm mb-2" for="image">
-                    ブログ用画像
-                </label>
-                <img src="{{ $post->image_url }}" alt="" class="mb-4 md:w-2/5 sm:auto">
-                <input type="file" name="image" class="border-gray-300">
+            <div class="flex gap-8">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm mb-2" for="image">
+                        お題用画像
+                    </label>
+                    <img src="{{ $post->image_url }}" alt="" class="mb-4 md:w-2/5 sm:auto">
+                    <input type="file" name="image" class="border-gray-300">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm mb-2" for="deadline">
+                        期限
+                    </label>
+                    <input type="date" name="deadline" id="deadline" class="border p-2 rounded" value="{{ old('deadline', $post->deadline) }}">
+                </div>
             </div>
             <input type="submit" value="更新"
                 class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
