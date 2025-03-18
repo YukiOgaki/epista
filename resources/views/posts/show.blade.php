@@ -49,12 +49,16 @@
                     <span class="font-bold mr-3">{{ $comment->user->name }}</span>
                     <span class="text-sm">{{ $comment->created_at }}</span>
                     <p class="break-all">{!! nl2br(e($comment->body)) !!}</p>
-        
+
+                    @php
+                        $deadline = $post->deadline ?? now()->subDay(); // NULL の場合は昨日の日付
+                    @endphp
+
                     <!-- イイネボタン追加 -->
                     <div class="flex items-center justify-start mt-2">
                         <button class="like-button flex items-center text-blue-500"
                             data-comment-id="{{ $comment->id }}"
-                            @if(now()->greaterThan($post->deadline)) disabled @endif>
+                            @if(now()->greaterThan($deadline)) disabled @endif>
                             👍 <span class="like-count ml-1">{{ $comment->likes->count() }}</span>
                         </button>
                     </div>
@@ -89,10 +93,10 @@
                         alert("この投稿の期限が過ぎているため、イイネはできません。");
                         return;
                     }
-        
+
                     let commentId = this.getAttribute("data-comment-id");
                     let likeCount = this.querySelector(".like-count");
-        
+
                     fetch(`/comments/${commentId}/like`, {
                         method: "POST",
                         headers: {
