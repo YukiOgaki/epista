@@ -12,7 +12,7 @@
                     {{ date('Y-m-d H:i:s', strtotime('-1 day')) < $post->created_at ? 'NEW' : '' }}
                 </span>
                 {{ $post->created_at }}
-                作成者:{{ $post->user->name }} (運営)
+                作成者:{{ $post->user->name }}
             </p>
             <img src="{{ $post->image_url }}" alt="" class="mb-4">
             <p class="text-gray-700 text-base break-all">{!! nl2br(e($post->body)) !!}</p>

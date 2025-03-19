@@ -20,7 +20,7 @@
                             @auth
                                 <div>{{ Auth::user()->name }}</div>
                             @else
-                                <div>guest</div>
+                                <div>ゲスト</div>
                             @endauth
 
                             <div class="ms-1">
@@ -54,7 +54,7 @@
                             </form>
                         @else
                             <x-dropdown-link :href="route('register')">
-                                {{ __('Sign Up') }}
+                                {{ __('アカウント作成') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('login')">
                                 {{ __('Log In') }}
