@@ -1,19 +1,13 @@
 #!/usr/bin/env bash
-
-echo "=== Installing Node modules and building assets ==="
-npm install
-npm run build
-
-echo "=== Installing PHP dependencies ==="
+echo "Running composer"
+composer global require hirak/prestissimo
 composer install --no-dev --working-dir=/var/www/html
 
-echo "=== Generating application key ==="
-php artisan key:generate --force
-
-echo "=== Caching configuration ==="
+echo "Caching config..."
 php artisan config:cache
-php artisan route:cache
-php artisan view:cache
 
-echo "=== Running database migrations ==="
+echo "Caching routes..."
+php artisan route:cache
+
+echo "Running migrations..."
 php artisan migrate --force
