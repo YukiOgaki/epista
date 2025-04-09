@@ -1,6 +1,10 @@
 # richarvey/nginx-php-fpmをベースとする
 FROM richarvey/nginx-php-fpm:latest
 
+# Node.js を追加
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
+    
 COPY . .
 
 # Image config
