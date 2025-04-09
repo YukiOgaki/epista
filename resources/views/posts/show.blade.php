@@ -40,12 +40,12 @@
             <div class="flex justify-end">
                 @if (now()->greaterThan($post->deadline))
                     <button 
-                        class="bg-gray-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block cursor-not-allowed" 
+                        class="bg-gray-400 text-red font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block cursor-not-allowed" 
                         disabled>
                         期限切れ
                     </button>
                 @else
-                    <a href="{{ route('posts.comments.create', $post) }}" 
+                    <a href="{{ route('posts.comments.create', $post) }}"
                         class="bg-indigo-400 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block">
                         ボケる
                     </a>
